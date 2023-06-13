@@ -1,9 +1,8 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
-
-import ThoughtList from '../components/ThoughtList';
+import "../styles/home.css"
 import ThoughtForm from '../components/ThoughtForm';
-
+import RecipePic from "../images/recipe-pic.jpg"
 import { QUERY_THOUGHTS } from '../utils/queries';
 
 const Home = () => {
@@ -12,22 +11,12 @@ const Home = () => {
 
   return (
     <main>
-      <div className="flex-row justify-center">
-        <div
-          className="col-12 col-md-10 mb-3 p-3"
-          style={{ border: '1px dotted #1a1a1a' }}
-        >
-          <ThoughtForm />
-        </div>
-        <div className="col-12 col-md-8 mb-3">
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <ThoughtList
-              thoughts={thoughts}
-              title="Some Feed for Thought(s)..."
-            />
-          )}
+      <div className="homeBox">
+        <div className="circle">
+          <div className='innercircle'>
+            <p className="text">A moment on the lips, a lifetime on the hips</p>
+            <img className='recipe-pic' src={RecipePic} alt='not working' />
+          </div>
         </div>
       </div>
     </main>

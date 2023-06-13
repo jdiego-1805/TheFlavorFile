@@ -1,0 +1,35 @@
+.circle {
+    display: flex;
+    justify-content: center;
+    width: 800px;
+    height: 800px;
+    background-color: #BA1B1D;
+    border-radius: 50%;
+  }
+
+  .text {
+    margin: auto;
+    color: #F7F4F3;
+    font-size: 55px;
+    text-align: center;
+  }
+
+  .homeBox{
+    display: grid;
+    place-items: center;
+   margin-top: 2%;
+  }
+
+  .recipe-pic{
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    height: 400px;
+    width: 400px;
+    margin: auto;
+  }
+
+.innercircle{
+    margin: auto;
+}
+

@@ -1,0 +1,24 @@
+.bg-primary {
+    background-color: #564D4A !important;
+}
+.btn-logIn{
+    background-color: #F24333 ;
+}
+
+.btn-logOut{
+    background-color: #F7F4F3;
+}
+
+.title {
+    color: #F24333;
+}
+
+.btn-logIn:hover {
+    background-color: #BA1B1D ;
+    color: #F24333;
+}
+
+.btn-logOut:hover {
+    background-color: #BA1B1D ;
+    color: #F24333;
+}
