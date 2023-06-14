@@ -51,9 +51,14 @@ const resolvers = {
 
       return { token, user };
     },
-    addRecipe: async (parent, { ingredients, instructions }, context) => {
+    addRecipe: async (
+      parent,
+      { ingredients, instructions, recipeName },
+      context
+    ) => {
       if (context.user) {
         const recipe = await Recipe.create({
+          recipeName,
           ingredients,
           instructions,
         });

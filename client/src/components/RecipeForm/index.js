@@ -40,6 +40,7 @@ const RecipeForm = () => {
     try {
       const { data } = await addRecipe({
         variables: {
+          recipeNameText,
           ingredientsText,
           instructionsText,
           recipeAuthor: Auth.getProfile().data.username,
@@ -48,6 +49,7 @@ const RecipeForm = () => {
 
       setIngredientsText('');
       setInstructionsText('');
+      setRecipeText('');
     } catch (err) {
       console.error(err);
     }
@@ -56,6 +58,9 @@ const RecipeForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
+    if (name === 'recipeNameText') {
+      setRecipeNameText(value);
+    }
     if (name === 'ingredientsText') {
       setIngredientsText(value);
     }
@@ -77,6 +82,18 @@ const RecipeForm = () => {
             className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
           >
+            <div className="col-12 col-lg-9">
+              recipe name:
+              <textarea
+                name="recipeText"
+                placeholder=""
+                value={recipeText}
+                className="form-input w-100"
+                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                onChange={handleChange}
+              ></textarea>
+            </div>
+
             <div className="col-12 col-lg-9">
               ingredients:
               <textarea
