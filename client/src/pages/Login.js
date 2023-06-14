@@ -44,7 +44,7 @@ const Login = (props) => {
 
   return (
     <main className="flex-row justify-center mainBox ">
-      <div className="col-12 col-lg-10 innerBox">
+      <div className="col-12  innerBox">
         <div className="card">
           <h4 className="card-header loginHeader text-light p-2">Login</h4>
           <div className="card-body">
@@ -54,7 +54,7 @@ const Login = (props) => {
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form onSubmit={handleFormSubmit}>
+              <form onSubmit={handleFormSubmit} className='loginForm'>
                 <PersonCircle size={60} className='iconPack' />
                 <input
                   className="form-input emailInput"
