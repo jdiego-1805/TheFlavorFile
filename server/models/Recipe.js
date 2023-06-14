@@ -2,25 +2,28 @@ const { Schema, model } = require("mongoose");
 const dateFormat = require("../utils/dateFormat");
 
 const recipeSchema = new Schema({
+  recipeName: {
+    type: String,
+    required: true,
+    minlength: 1,
+    maxlength: 280,
+    trim: true,
+  },
   ingredients: [
     {
-      ingredientsText: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 280,
-        trim: true,
-      },
+      type: String,
+      required: true,
+      minlength: 1,
+      maxlength: 280,
+      trim: true,
     },
   ],
   instructions: [
     {
-      instructionsText: {
-        type: String,
-        minlength: 1,
-        maxlength: 280,
-        trim: true,
-      },
+      type: String,
+      minlength: 1,
+      maxlength: 280,
+      trim: true,
     },
   ],
   createdAt: {

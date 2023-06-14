@@ -1,25 +1,26 @@
 const { gql } = require("apollo-server-express");
 
+// type Ingredient {
+//   ingredientsText: String
+// }
+// type Instructions {
+//   instructionsText: String
+// }
+
 const typeDefs = gql`
   type User {
     _id: ID
     username: String
     email: String
     password: String
-    recipes: [Recipe]!
-  }
-
-  type Ingredient {
-    ingredientsText: String
-  }
-  type Instructions {
-    instructionsText: String
+    recipes: [Recipe]
   }
 
   type Recipe {
     _id: ID
-    ingredients: [Ingredient]!
-    instructions: [Instructions]!
+    recipeName: String!
+    ingredients: [String]!
+    instructions: [String]!
     createdAt: String
   }
 
@@ -39,7 +40,11 @@ const typeDefs = gql`
   type Mutation {
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addRecipe(ingredients: [String]!, instructions: [String]!): Recipe
+    addRecipe(
+      recipeName: String!
+      ingredients: [String]!
+      instructions: [String]!
+    ): Recipe
     removeRecipe(recipeId: ID!): Recipe
   }
 `;

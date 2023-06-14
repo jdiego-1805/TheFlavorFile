@@ -28,12 +28,8 @@ export const ADD_RECIPE = gql`
   mutation addRecipe($ingredients: [String]!, $instructions: [String]!) {
     addRecipe(ingredients: $ingredients, instructions: $instructions) {
       _id
-      ingredients {
-        ingredientsText
-      }
-      instructions {
-        instructionsText
-      }
+      ingredients
+      instructions
     }
   }
 `;
