@@ -51,17 +51,15 @@ export const QUERY_SINGLE_RECIPE = gql`
 `;
 
 export const QUERY_ME = gql`
-  query Me {
+  query me {
     me {
+      _id
       username
       email
       recipes {
-        ingredients {
-          ingredientsText
-        }
-        instructions {
-          instructionsText
-        }
+        _id
+        ingredients
+        instructions
         createdAt
       }
     }
