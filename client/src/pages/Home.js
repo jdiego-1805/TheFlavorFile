@@ -4,11 +4,11 @@ import "../styles/home.css"
 import ThoughtForm from '../components/ThoughtForm';
 import RecipePic from "../images/recipe-pic.jpg"
 import { QUERY_THOUGHTS } from '../utils/queries';
+import Auth from '../utils/auth';
+import { QUERY_USER, QUERY_ME } from '../utils/queries';
+import { Navigate, useParams } from 'react-router-dom';
 
 const Home = () => {
-  const { loading, data } = useQuery(QUERY_THOUGHTS);
-  const thoughts = data?.thoughts || [];
-
   return (
     <main>
       <div className="homeBox">
