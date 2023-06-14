@@ -66,7 +66,7 @@ const RecipeForm = () => {
 
   return (
     <div>
-      <h3>What's on your techy mind?</h3>
+      <h3>Whisking Up Recipe Fun: Let's Post!</h3>
 
       {Auth.loggedIn() ? (
         <>
@@ -78,9 +78,10 @@ const RecipeForm = () => {
             onSubmit={handleFormSubmit}
           >
             <div className="col-12 col-lg-9">
+              ingredients:
               <textarea
                 name="ingredientsText"
-                placeholder="Here's a new thought..."
+                placeholder="New recipe in 3..2..1..."
                 value={ingredientsText}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
@@ -89,9 +90,10 @@ const RecipeForm = () => {
             </div>
             
             <div className="col-12 col-lg-9">
+              instructions:
               <textarea
                 name="instructionsText"
-                placeholder="Here's a new thought..."
+                placeholder="Here's how to prep the masterpiece..."
                 value={instructionsText}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
