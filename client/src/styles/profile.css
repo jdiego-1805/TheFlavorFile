@@ -1,0 +1,27 @@
+.big-container{ 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    grid-gap: 20px; 
+    width: 100%;
+    height: 15em; 
+} 
+.profile-container{ 
+    font-size: x-large;
+    text-align: center;
+    margin: 10px;
+    background-color: #BA1B1D;
+    padding: 20px;
+}
+.bottom-container{ 
+    font-size: x-large;
+    width: 100%;
+    height: 10em;
+    text-align: center;
+    background-color: #BA1B1D;
+    padding: 20px;
+    margin-top: 2em;
+}
+button{
+    margin-top: 5em;
+    background-color: #564D4A;
+}
