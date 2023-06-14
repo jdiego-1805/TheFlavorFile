@@ -58,6 +58,7 @@ export const QUERY_ME = gql`
       email
       recipes {
         _id
+        recipeName
         ingredients
         instructions
         createdAt
