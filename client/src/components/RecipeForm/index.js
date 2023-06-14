@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
+import "../../styles/recipesform.css"
 
 import { ADD_RECIPE } from '../../utils/mutations';
 import { QUERY_RECIPES, QUERY_ME } from '../../utils/queries';
@@ -77,21 +78,18 @@ const RecipeForm = () => {
 
       {Auth.loggedIn() ? (
         <>
-          <p>
-            
-          </p>
           <form
             className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
           >
-            <div className="col-12 col-lg-9">
+            <div className="col-12 col-lg-4">
               recipe name:
               <textarea
                 name="recipeNameText"
-                placeholder=""
+                placeholder="Mona Lisa part 2.."
                 value={recipeName}
                 className="form-input w-100"
-                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                style={{ lineHeight: '.3', resize: 'vertical' }}
                 onChange={handleChange}
               ></textarea>
             </div>
