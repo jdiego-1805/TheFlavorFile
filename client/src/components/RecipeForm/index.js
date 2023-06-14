@@ -2,24 +2,24 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
-import { ADD_THOUGHT } from '../../utils/mutations';
-import { QUERY_THOUGHTS, QUERY_ME } from '../../utils/queries';
+import { ADD_RECIPE } from '../../utils/mutations';
+import { QUERY_RECIPES, QUERY_ME } from '../../utils/queries';
 
 import Auth from '../../utils/auth';
 
-const ThoughtForm = () => {
-  const [thoughtText, setThoughtText] = useState('');
+const RecipeForm = () => {
+  const [ingredientsText, setIngredientsText] = useState('');
+  
+  const [instructionsText, setInstructionsText] = useState('');
 
-  const [characterCount, setCharacterCount] = useState(0);
-
-  const [addThought, { error }] = useMutation(ADD_THOUGHT, {
-    update(cache, { data: { addThought } }) {
+  const [addRecipe, { error }] = useMutation(ADD_RECIPE, {
+    update(cache, { data: { addRecipe } }) {
       try {
-        const { thoughts } = cache.readQuery({ query: QUERY_THOUGHTS });
+        const { recipe } = cache.readQuery({ query: QUERY_RECIPES });
 
         cache.writeQuery({
-          query: QUERY_THOUGHTS,
-          data: { thoughts: [addThought, ...thoughts] },
+          query: QUERY_RECIPES,
+          data: { recipe: [addRecipe, ...recipe] },
         });
       } catch (e) {
         console.error(e);
@@ -29,7 +29,7 @@ const ThoughtForm = () => {
       const { me } = cache.readQuery({ query: QUERY_ME });
       cache.writeQuery({
         query: QUERY_ME,
-        data: { me: { ...me, thoughts: [...me.thoughts, addThought] } },
+        data: { me: { ...me, recipe: [...me.recipe, addRecipe] } },
       });
     },
   });
@@ -38,14 +38,16 @@ const ThoughtForm = () => {
     event.preventDefault();
 
     try {
-      const { data } = await addThought({
+      const { data } = await addRecipe({
         variables: {
-          thoughtText,
-          thoughtAuthor: Auth.getProfile().data.username,
+          ingredientsText,
+          instructionsText,
+          recipeAuthor: Auth.getProfile().data.username,
         },
       });
 
-      setThoughtText('');
+      setIngredientsText('');
+      setInstructionsText('');
     } catch (err) {
       console.error(err);
     }
@@ -54,9 +56,11 @@ const ThoughtForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'thoughtText' && value.length <= 280) {
-      setThoughtText(value);
-      setCharacterCount(value.length);
+    if (name === 'ingredientsText') {
+      setIngredientsText(value);
+    }
+    if (name === 'instructionsText') {
+      setInstructionsText(value);
     }
   };
 
@@ -66,12 +70,8 @@ const ThoughtForm = () => {
 
       {Auth.loggedIn() ? (
         <>
-          <p
-            className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
-            }`}
-          >
-            Character Count: {characterCount}/280
+          <p>
+            
           </p>
           <form
             className="flex-row justify-center justify-space-between-md align-center"
@@ -79,9 +79,20 @@ const ThoughtForm = () => {
           >
             <div className="col-12 col-lg-9">
               <textarea
-                name="thoughtText"
+                name="ingredientsText"
                 placeholder="Here's a new thought..."
-                value={thoughtText}
+                value={ingredientsText}
+                className="form-input w-100"
+                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                onChange={handleChange}
+              ></textarea>
+            </div>
+            
+            <div className="col-12 col-lg-9">
+              <textarea
+                name="instructionsText"
+                placeholder="Here's a new thought..."
+                value={instructionsText}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
@@ -90,7 +101,7 @@ const ThoughtForm = () => {
 
             <div className="col-12 col-lg-3">
               <button className="btn btn-primary btn-block py-3" type="submit">
-                Add Thought
+                Add Recipe
               </button>
             </div>
             {error && (
@@ -102,7 +113,7 @@ const ThoughtForm = () => {
         </>
       ) : (
         <p>
-          You need to be logged in to share your thoughts. Please{' '}
+          You need to be logged in to share your recipe. Please{' '}
           <Link to="/login">login</Link> or <Link to="/signup">signup.</Link>
         </p>
       )}
@@ -110,4 +121,4 @@ const ThoughtForm = () => {
   );
 };
 
-export default ThoughtForm;
+export default RecipeForm;
