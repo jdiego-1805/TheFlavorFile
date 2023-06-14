@@ -8,9 +8,11 @@ import { QUERY_RECIPES, QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 const RecipeForm = () => {
-  const [ingredientsText, setIngredientsText] = useState('');
+  const [recipeName, setRecipeNameText] = useState('');
+
+  const [ingredients, setIngredientsText] = useState('');
   
-  const [instructionsText, setInstructionsText] = useState('');
+  const [instructions, setInstructionsText] = useState('');
 
   const [addRecipe, { error }] = useMutation(ADD_RECIPE, {
     update(cache, { data: { addRecipe } }) {
@@ -40,16 +42,16 @@ const RecipeForm = () => {
     try {
       const { data } = await addRecipe({
         variables: {
-          recipeNameText,
-          ingredientsText,
-          instructionsText,
+          recipeName,
+          ingredients,
+          instructions,
           recipeAuthor: Auth.getProfile().data.username,
         },
       });
 
       setIngredientsText('');
       setInstructionsText('');
-      setRecipeText('');
+      setRecipeNameText('');
     } catch (err) {
       console.error(err);
     }
@@ -85,9 +87,9 @@ const RecipeForm = () => {
             <div className="col-12 col-lg-9">
               recipe name:
               <textarea
-                name="recipeText"
+                name="recipeNameText"
                 placeholder=""
-                value={recipeText}
+                value={recipeName}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
@@ -99,7 +101,7 @@ const RecipeForm = () => {
               <textarea
                 name="ingredientsText"
                 placeholder="New recipe in 3..2..1..."
-                value={ingredientsText}
+                value={ingredients}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
@@ -111,7 +113,7 @@ const RecipeForm = () => {
               <textarea
                 name="instructionsText"
                 placeholder="Here's how to prep the masterpiece..."
-                value={instructionsText}
+                value={instructions}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}
