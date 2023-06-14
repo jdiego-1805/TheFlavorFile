@@ -1,25 +1,25 @@
 const { gql } = require("apollo-server-express");
 
+// type Ingredient {
+//   ingredientsText: String
+// }
+// type Instructions {
+//   instructionsText: String
+// }
+
 const typeDefs = gql`
   type User {
     _id: ID
     username: String
     email: String
     password: String
-    recipes: [Recipe]!
-  }
-
-  type Ingredient {
-    ingredientsText: String
-  }
-  type Instructions {
-    instructionsText: String
+    recipes: [Recipe]
   }
 
   type Recipe {
     _id: ID
-    ingredients: [Ingredient]!
-    instructions: [Instructions]!
+    ingredients: [String]!
+    instructions: [String]!
     createdAt: String
   }
 
