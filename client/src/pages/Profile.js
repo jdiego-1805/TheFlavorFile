@@ -57,19 +57,26 @@ const Profile = () => {
   const recipes = user.recipes || [];
   return (
     <div className="justify-center mb-3">
+      <a href="/post"><h1 className="recipeTitle">lets make a recipe</h1></a>
       <div>
         {recipes &&
           recipes.map((recipe) => (
-            <div key={recipe}>
-              <h1>{recipe.recipeName}</h1>
-              <p>{recipe.ingredients}</p>
-              <p>{recipe.instructions}</p>
-              <button
-                className="btn-block btn-danger"
-                onClick={() => handleRemoveRecipe(recipe._id)}
-              >
-                Delete this recipe!
-              </button>
+            <div key={recipe} className="recipeBox container">
+              <h1 className="recipeName">{recipe.recipeName}</h1>
+              <div className="buttonGrid">
+                <button
+                  className=""
+                  onClick={() => handleRemoveRecipe(recipe._id)}
+                >
+                  Delete this recipe!
+                </button>
+                <button
+                  className=""
+                  onClick={() => handleRemoveRecipe(recipe._id)}
+                >
+                  Delete this recipe!
+                </button>
+              </div>
             </div>
           ))}
       </div>
