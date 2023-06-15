@@ -1,0 +1,41 @@
+.bigBox{
+    display: grid;
+    grid-template-rows: 300px 300px;
+    grid-template-columns: 700px 700px;
+    grid-column-gap: 100px;
+    justify-content: center;
+}
+.centerTitle{
+    text-align: center;
+    padding-bottom: 20px;
+    color: white;
+}
+.titleRecipe{
+    text-align: center;
+    color: #F24333;
+}
+.box1{ 
+    background-color: #F24333;
+    font-size: 20px;
+}
+.box2{ 
+    background-color: #F24333;
+    font-size: 20px;
+}
+.ingredient{
+    background-color: #F24333;
+}
+.instruction{
+    background-color: #F24333;
+}
+
+@media screen and (max-width: 1520px) {
+    .bigBox{
+       
+        display: flex;
+        gap: 50px;
+        flex-direction: column;
+        align-content: center;
+        justify-content: space-between;
+}
+}
