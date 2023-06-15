@@ -5,7 +5,7 @@ import { Navigate, useParams } from "react-router-dom";
 import { QUERY_USER, QUERY_ME } from "../utils/queries";
 import { REMOVE_RECIPE } from "../utils/mutations";
 import Auth from "../utils/auth";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { username: userParam } = useParams();
@@ -58,21 +58,18 @@ const Profile = () => {
   const recipes = user.recipes || [];
   return (
     <div className="justify-center mb-3">
-      <a href="/post"><h1 className="recipeTitle">Click here to create a new recipe!</h1></a>
+      <a href="/post">
+        <h1 className="recipeTitle">Click here to create a new recipe!</h1>
+      </a>
       <div>
         <div className="eachBox">
           {recipes &&
             recipes.map((recipe) => (
-              <div key={recipe} className="recipeBox container">
+              <div key={recipe._id} className="recipeBox container">
                 <h1 className="recipeName">{recipe.recipeName}</h1>
                 <div className="buttonGrid">
-                  <Link className="linkText"
-                    to={`/recipes/${recipe._id}`}>
-                    <button
-                      className="btn-view"
-                    >
-                      View this recipe!
-                    </button>
+                  <Link className="linkText" to={`/recipes/${recipe._id}`}>
+                    <button className="btn-view">View this recipe!</button>
                   </Link>
                   <button
                     className="btn-delete"

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import "../../styles/recipesform.css";
-import { Routes, Route, useNavigate } from "react-router-dom";
 
 import { ADD_RECIPE } from "../../utils/mutations";
 import { QUERY_RECIPES, QUERY_ME } from "../../utils/queries";
@@ -43,10 +42,11 @@ const RecipeForm = () => {
       });
     },
   });
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    
+
     try {
       if (!recipeName) {
         console.error("Recipe name is required.");
@@ -60,15 +60,17 @@ const RecipeForm = () => {
           recipeAuthor: Auth.getProfile().data.username,
         },
       });
-      
+
       setIngredientsText("");
       setInstructionsText("");
       setRecipeNameText("");
+
+      navigate("/me");
     } catch (err) {
       console.error(err);
     }
   };
-  
+
   const handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
@@ -87,19 +89,13 @@ const RecipeForm = () => {
   const handleIngredient = async (event) => {
     event.preventDefault();
     setIngredientArray([...ingredientArray, ingredients]);
-    setIngredientsText("")
+    setIngredientsText("");
   };
-  
+
   const handleInstruction = async (event) => {
     event.preventDefault();
-  setInstructionArray([...instructionArray, instructions]);
-  setInstructionsText("")
-  };
-  
-  const navigate = useNavigate();
-
-  const navigateToMe = () => {
-    navigate('/me');
+    setInstructionArray([...instructionArray, instructions]);
+    setInstructionsText("");
   };
 
   return (
@@ -108,10 +104,7 @@ const RecipeForm = () => {
 
       {Auth.loggedIn() ? (
         <>
-          <form
-            className="form-body"
-            onSubmit={handleFormSubmit}
-          >
+          <form className="form-body" onSubmit={handleFormSubmit}>
             <div className="mini-title">
               What is your recipe called:
               <textarea
@@ -133,15 +126,17 @@ const RecipeForm = () => {
                 className="form-input w-100"
                 style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
-                ></textarea>
-                <div>{ingredientArray.map((ingredient) => (
-                  <li>{ingredient}</li>
-                ))}</div>
+              ></textarea>
+              <div>
+                {ingredientArray.map((ingredient, i) => (
+                  <li key={i}>{ingredient}</li>
+                ))}
+              </div>
               <button
                 className="btn btn-block py-3"
                 type="text"
                 onClick={handleIngredient}
-                >
+              >
                 Add Ingredient
               </button>
             </div>
@@ -156,9 +151,13 @@ const RecipeForm = () => {
                 style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
               ></textarea>
-                <div className=""><ol>{instructionArray.map((instruction, index) => (
-                  <li key={index}>{instruction}</li>
-                ))}</ol></div>
+              <div className="">
+                <ol>
+                  {instructionArray.map((instruction, index) => (
+                    <li key={index}>{instruction}</li>
+                  ))}
+                </ol>
+              </div>
               <button
                 className="btn btn-block py-3"
                 type="text"
@@ -169,7 +168,7 @@ const RecipeForm = () => {
             </div>
 
             <div className="col-12 col-lg-3">
-              <button onClick={navigateToMe} className="add-rec btn btn-block py-3" type="submit">
+              <button className="add-rec btn btn-block py-3" type="submit">
                 Add Recipe
               </button>
             </div>
