@@ -1,18 +1,32 @@
 .add-rec{
     background-color: #564D4A;
 color: white;
-;
+margin: 20px 0px 0px 145px;
 }
 
 .mini-title{
     font-size: 30px;
+    text-align: center;
+    padding-top: 20px;
 }
 
 h3{
     font-size: 50px;
-    color: #F24333
+    color: #F24333;
+text-align: center;    
 }
 
 h6{
     background-color: #564D4A;
+}
+
+textarea{
+    margin: 0 !important;
+}
+
+.form-body{
+    display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+align-content: center;
 }
