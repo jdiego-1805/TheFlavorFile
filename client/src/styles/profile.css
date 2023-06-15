@@ -5,16 +5,64 @@
 
 .recipeName{
     text-align: center;
+    color: #F7F4F3;
 }
 
 .buttonGrid{
     display: flex;
     margin: auto;
     justify-content: center;
+    gap: 20px;
+    padding-bottom: 1px;
 }
 
-.recipeBox{
+.recipeBox {
     display: flex;
     width: 500px;
     justify-content: center;
+    margin-top: 30px;
+    flex-direction: column;
+    gap: 15px;
+    background-color: #BA1B1D;
+    border-radius: 20px 20px 20px 0px;
+}
+
+.btn-view, .btn-delete {
+    padding: 7px;
+    border-radius: 7px;
+}
+
+.btn-view{
+    background-color: #958681;
+}
+
+.btn-delete{
+    background-color: #6a5f5b;
+}
+
+.btn-view:hover{
+    background-color: #F24333;
+}
+
+.btn-delete:hover{
+    background-color: #F24333;
+}
+
+.eachBox{
+    display: grid;
+    padding: 1%;
+    grid-template-rows: 150px 150px;
+	grid-template-columns: 500px 500px;
+    grid-gap: 20px;
+    grid-column-gap: 40px;
+    justify-content: center;
+}
+
+.linkText{
+    color: black;
+}
+
+.linkText:hover{
+    color: black;
+    text-decoration: none;
 }
