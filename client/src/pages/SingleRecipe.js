@@ -63,12 +63,22 @@ const SingleRecipe = () => {
         },
     })
 
+    useEffect(() => {
+
+        if (data) {
+            setEditRecipe(data.recipe);
+
+        }
+
+    }, [data])
+
     const handleFormSubmit = async (event) => {
         event.preventDefault();
 
         try {
             const { data } = await updateRecipe({
                 variables: {
+                    recipeId: editRecipe._id,
                     recipeName: editRecipe.recipeName,
                     ingredients: editRecipe.ingredients,
                     instructions: editRecipe.instructions,
@@ -80,14 +90,7 @@ const SingleRecipe = () => {
         }
     };
 
-    useEffect(() => {
 
-        if (data) {
-            setEditRecipe(data.recipe);
-
-        }
-
-    }, [data])
     const recipe = data?.recipe || { ingredients: [], instructions: [] };
 
     console.log(editRecipe);
