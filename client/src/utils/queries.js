@@ -24,12 +24,8 @@ export const QUERY_RECIPES = gql`
   query recipes {
     recipes {
       _id
-      ingredients {
-        ingredientsText
-      }
-      instructions {
-        instructionsText
-      }
+      ingredients
+      instructions
       createdAt
     }
   }
