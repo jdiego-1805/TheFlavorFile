@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import { LOGIN_USER } from '../utils/mutations';
 import "../styles/login.css"
-import { PersonCircle, PCircleFill } from "react-bootstrap-icons"
+import { EnvelopeAtFill, PCircleFill } from "react-bootstrap-icons"
 
 import Auth from '../utils/auth';
 
@@ -44,7 +44,7 @@ const Login = (props) => {
 
   return (
     <main className="flex-row justify-center mainBox ">
-      <div className="col-12 col-lg-10 innerBox">
+      <div className="col-12  innerBox">
         <div className="card">
           <h4 className="card-header loginHeader text-light p-2">Login</h4>
           <div className="card-body">
@@ -54,19 +54,19 @@ const Login = (props) => {
                 <Link to="/">back to the homepage.</Link>
               </p>
             ) : (
-              <form onSubmit={handleFormSubmit}>
-                <PersonCircle size={60} className='iconPack' />
+              <form onSubmit={handleFormSubmit} className='loginForm'>
+                <EnvelopeAtFill size={60} className='loginemailIcon' />
                 <input
-                  className="form-input emailInput"
+                  className="form-input emailInput boxInput"
                   placeholder="Your email"
                   name="email"
                   type="email"
                   value={formState.email}
                   onChange={handleChange}
                 />
-                <PCircleFill size={60} className='iconPack2' />
+                <PCircleFill size={60} className='loginPasswordIcon' />
                 <input
-                  className="form-input"
+                  className="form-input boxInput"
                   placeholder="******"
                   name="password"
                   type="password"
