@@ -12,7 +12,7 @@ import Home from './pages/Home';
 import Signup from './pages/Signup';
 import Login from './pages/Login';
 import Post from './pages/Post';
-// import SingleThought from './pages/SingleThought';
+import SingleRecipe from './pages/SingleRecipe';
 import Profile from './pages/Profile';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -76,10 +76,10 @@ function App() {
                 path="/profiles/:username"
                 element={<Profile />}
               />
-              {/* <Route
-                path="/thoughts/:thoughtId"
-                element={<SingleThought />}
-              /> */}
+              <Route
+                path="/recipes/:recipeId"
+                element={<SingleRecipe />}
+              />
             </Routes>
           </div>
           <Footer />
