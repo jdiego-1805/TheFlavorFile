@@ -30,6 +30,7 @@ export const QUERY_RECIPES = gql`
 export const QUERY_SINGLE_RECIPE = gql`
   query recipe($recipeId: ID!) {
     recipe(recipeId: $recipeId) {
+      _id
       recipeName
       ingredients
       instructions
