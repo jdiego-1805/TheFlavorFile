@@ -1,12 +1,5 @@
 const { gql } = require("apollo-server-express");
 
-// type Ingredient {
-//   ingredientsText: String
-// }
-// type Instructions {
-//   instructionsText: String
-// }
-
 const typeDefs = gql`
   type User {
     _id: ID
@@ -46,6 +39,12 @@ const typeDefs = gql`
       instructions: [String]!
     ): Recipe
     removeRecipe(recipeId: ID!): Recipe
+    updateRecipe(
+      recipeId: ID!
+      recipeName: String!
+      ingredients: [String]!
+      instructions: [String]!
+    ): Recipe
   }
 `;
 

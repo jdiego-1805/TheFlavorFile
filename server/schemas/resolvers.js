@@ -85,6 +85,28 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in!");
     },
+    updateRecipe: async (
+      parent,
+      { recipeId, recipeName, ingredients, instructions },
+      context
+    ) => {
+      if (context.user) {
+        const recipe = await Recipe.findOne({ _id: recipeId });
+
+        if (!recipe) {
+          throw new Error("Recipe was not found");
+        }
+
+        const updatedRecipe = await Recipe.findByIdAndUpdate(
+          { _id: recipeId },
+          { $set: { recipeName, ingredients, instructions } },
+          { new: true }
+        );
+
+        return updatedRecipe;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
   },
 };
 
