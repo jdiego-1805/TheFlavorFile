@@ -8,12 +8,8 @@ export const QUERY_USER = gql`
       email
       recipes {
         _id
-        ingredients {
-          ingredientsText
-        }
-        instructions {
-          instructionsText
-        }
+        ingredients
+        instructions
         createdAt
       }
     }
@@ -34,13 +30,9 @@ export const QUERY_RECIPES = gql`
 export const QUERY_SINGLE_RECIPE = gql`
   query recipe($recipeId: ID!) {
     recipe(recipeId: $recipeId) {
-      _id
-      ingredients {
-        ingredientsText
-      }
-      instructions {
-        instructionsText
-      }
+      recipeName
+      ingredients
+      instructions
       createdAt
     }
   }

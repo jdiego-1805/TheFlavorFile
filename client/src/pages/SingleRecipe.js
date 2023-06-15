@@ -1,58 +1,49 @@
-// import React from 'react';
+import React from "react";
 
-// // Import the `useParams()` hook
-// import { useParams } from 'react-router-dom';
-// import { useQuery } from '@apollo/client';
+// Import the `useParams()` hook
+import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/client";
+import { QUERY_SINGLE_RECIPE } from "../utils/queries";
+import "../styles/singlerecipe.css";
 
-// import CommentList from '../components/CommentList';
-// import CommentForm from '../components/CommentForm';
+const SingleRecipe = () => {
+    // Use `useParams()` to retrieve value of the route parameter `:profileId`
+    const { recipeId } = useParams();
+    const { loading, data } = useQuery(QUERY_SINGLE_RECIPE, {
+        // pass URL parameter
+        variables: { recipeId: recipeId },
+    });
 
-// import { QUERY_SINGLE_THOUGHT } from '../utils/queries';
+    const recipe = data?.recipe || {};
 
-// const SingleThought = () => {
-//     // Use `useParams()` to retrieve value of the route parameter `:profileId`
-//     const { thoughtId } = useParams();
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+    return (
+        <div>
+            <h1 className="centerTitle titleRecipe">{recipe.recipeName}</h1>
+            <div className="bigBox">
+                <div className="box1">
+                    <h2 className="centerTitle">Ingredients:</h2>
+                    <div className="ingredient">
+                        {recipe.ingredients.map((ingredient) => (
+                            <li>{ingredient}</li>
+                        ))}
+                    </div>
+                </div>
+                <div className="box2">
+                    <h2 className="centerTitle">Instructions:</h2>
+                    <div className="instruction">
+                        <ol>
+                            {recipe.instructions.map((instruction, index) => (
+                                <li key={index}>{instruction}</li>
+                            ))}
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
 
-//     const { loading, data } = useQuery(QUERY_SINGLE_THOUGHT, {
-//         // pass URL parameter
-//         variables: { thoughtId: thoughtId },
-//     });
-
-//     const thought = data?.thought || {};
-
-//     if (loading) {
-//         return <div>Loading...</div>;
-//     }
-//     return (
-//         <div className="my-3">
-//             <h3 className="card-header bg-dark text-light p-2 m-0">
-//                 {thought.thoughtAuthor} <br />
-//                 <span style={{ fontSize: '1rem' }}>
-//                     had this thought on {thought.createdAt}
-//                 </span>
-//             </h3>
-//             <div className="bg-light py-4">
-//                 <blockquote
-//                     className="p-4"
-//                     style={{
-//                         fontSize: '1.5rem',
-//                         fontStyle: 'italic',
-//                         border: '2px dotted #1a1a1a',
-//                         lineHeight: '1.5',
-//                     }}
-//                 >
-//                     {thought.thoughtText}
-//                 </blockquote>
-//             </div>
-
-//             <div className="my-5">
-//                 <CommentList comments={thought.comments} />
-//             </div>
-//             <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-//                 <CommentForm thoughtId={thought._id} />
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default SingleThought;
+export default SingleRecipe;
