@@ -107,7 +107,6 @@ const RecipeForm = () => {
 
   return (
     <div>
-      
       <h3>Whisking Up Recipe Fun: Let's Post!</h3>
 
       {Auth.loggedIn() ? (
@@ -134,12 +133,7 @@ const RecipeForm = () => {
                 className="form-input w-100"
                 style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
-                ></textarea>
-              <div>
-                {ingredientArray.map((ingredient, i) => (
-                  <li key={i}>{ingredient}</li>
-                ))}
-              </div>
+              ></textarea>
               <button
                 className="add-btn btn"
                 type="text"
@@ -147,9 +141,11 @@ const RecipeForm = () => {
               >
                 Add Ingredient
               </button>
-                <div>{ingredientArray.map((ingredient) => (
-                  <li>{ingredient}</li>
-                ))}</div>
+              <div>
+                {ingredientArray.map((ingredient, i) => (
+                  <li key={i}>{ingredient}</li>
+                ))}
+              </div>
             </div>
 
             <div className="mini-title">
@@ -162,13 +158,6 @@ const RecipeForm = () => {
                 style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
               ></textarea>
-              <div className="">
-                <ol>
-                  {instructionArray.map((instruction, index) => (
-                    <li key={index}>{instruction}</li>
-                  ))}
-                </ol>
-              </div>
               <button
                 className="add-btn btn"
                 type="text"
@@ -176,13 +165,21 @@ const RecipeForm = () => {
               >
                 Add Instruction
               </button>
-                <div className=""><ol>{instructionArray.map((instruction, index) => (
-                  <li key={index}>{instruction}</li>
-                ))}</ol></div>
+              <div className="">
+                <ol>
+                  {instructionArray.map((instruction, index) => (
+                    <li key={index}>{instruction}</li>
+                  ))}
+                </ol>
+              </div>
             </div>
 
             <div className="">
-              <button  onClick={navigateToMe} className="add-rec btn btn-block py-3" type="submit">
+              <button
+                onClick={navigateToMe}
+                className="add-rec btn btn-block py-3"
+                type="submit"
+              >
                 Add Recipe
               </button>
             </div>
