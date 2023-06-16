@@ -7,12 +7,9 @@ import "../styles/singlerecipe.css";
 import { UPDATE_RECIPE } from "../utils/mutations";
 import Auth from "../utils/auth";
 
+
 const SingleRecipe = () => {
     // Use `useParams()` to retrieve value of the route parameter `:profileId`
-    const [ingredientArray, setIngredientArray] = useState([]);
-    const [instructionArray, setInstructionArray] = useState([]);
-    const [recipeName, setRecipeNameText] = useState("");
-
     const [editMode, setEditMode] = useState(false)
     const [editRecipe, setEditRecipe] = useState({ ingredients: [], instructions: [] });
 
@@ -73,8 +70,6 @@ const SingleRecipe = () => {
     }, [data])
 
     const handleFormSubmit = async (event) => {
-        event.preventDefault();
-
         try {
             const { data } = await updateRecipe({
                 variables: {
@@ -85,10 +80,13 @@ const SingleRecipe = () => {
                     recipeAuthor: Auth.getProfile().data.username,
                 },
             });
-        } catch (err) {
+            setEditMode(false)
+        }
+        catch (err) {
             console.error(err);
         }
     };
+
 
 
     const recipe = data?.recipe || { ingredients: [], instructions: [] };
@@ -105,33 +103,29 @@ const SingleRecipe = () => {
 
     return (
         <div>
+
             <button onClick={() => setEditMode(!editMode)}>edit</button>
             <button onClick={handleFormSubmit}>save</button>
+
             <h1 className="centerTitle titleRecipe">
                 <EditRecipeName editMode={editMode} recipe={editMode ? editRecipe : recipe} setEditRecipe={setEditRecipe}></EditRecipeName>
             </h1>
             <div className="bigBox">
                 <div className="box1">
                     <h2 className="centerTitle">Ingredients:</h2>
-
                     <div className="ingredient">
-
-
                         <IngredientList editMode={editMode} recipe={editMode ? editRecipe : recipe} setEditRecipe={setEditRecipe}></IngredientList>
-
-
-
-
                     </div>
 
                 </div>
                 <div className="box2">
                     <h2 className="centerTitle">Instructions:</h2>
                     <div className="instruction">
-                        <ol>
-                            <InstructionsList editMode={editMode} recipe={editMode ? editRecipe : recipe} setEditRecipe={setEditRecipe}></InstructionsList>
+                        <ol className="flexing">
+                            <InstructionsList className="instructionList" editMode={editMode} recipe={editMode ? editRecipe : recipe} setEditRecipe={setEditRecipe}></InstructionsList>
                         </ol>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -168,7 +162,7 @@ function IngredientList({ recipe, editMode, setEditRecipe }) {
     }
     else {
         return recipe.ingredients.map((ingredient, i) => {
-            return <li>{ingredient}</li>
+            return <li className="ingredientList">{ingredient}</li>
 
         })
     }
@@ -203,7 +197,7 @@ function InstructionsList({ recipe, editMode, setEditRecipe }) {
     }
     else {
         return recipe.instructions.map((instruction, i) => {
-            return <li>{instruction}</li>
+            return <li className="instructionList">{instruction}</li>
 
         })
     }

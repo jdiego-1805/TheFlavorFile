@@ -1,6 +1,6 @@
 .bigBox{
     display: grid;
-    grid-template-rows: 300px 300px;
+    grid-template-rows: 100%;
     grid-template-columns: 700px 700px;
     grid-column-gap: 100px;
     justify-content: center;
@@ -15,23 +15,50 @@
     color: #F24333;
 }
 .box1{ 
-    background-color: #F24333;
+    background-color: #BA1B1D;
     font-size: 20px;
 }
 .box2{ 
-    background-color: #F24333;
+    background-color: #BA1B1D;
     font-size: 20px;
+    overflow-wrap: break-word;
 }
+
+
 .ingredient{
-    background-color: #F24333;
+    background-color: #BA1B1D;
+    color: #F7F4F3;
 }
 .instruction{
-    background-color: #F24333;
+    background-color: #BA1B1D;
+    color: #F7F4F3;
+}
+
+
+
+.ingredient{
+    padding-left: 20px;
+}
+
+.ingredientList, .instructionList{
+    margin-bottom: 20px;
+}
+
+.instructionList{
+    position: relative;
+}
+
+.instructionList::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -20px;
+    border-bottom: 2px dashed #564D4A;
+    width: 665px;
 }
 
 @media screen and (max-width: 1520px) {
     .bigBox{
-       
         display: flex;
         gap: 50px;
         flex-direction: column;
