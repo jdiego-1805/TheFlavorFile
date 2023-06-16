@@ -15,6 +15,8 @@
 .centerRecipeName{
     justify-content: center;
     text-align: center;
+    font-size: 65px;
+    padding-bottom: 20px;
 }
 
 .titleRecipe{

@@ -87,15 +87,13 @@ const SingleRecipe = () => {
                 },
             });
             setEditMode(false)
-        } catch (err) {
+        }
+        catch (err) {
             console.error(err);
         }
     };
 
     const recipe = data?.recipe || { ingredients: [], instructions: [] };
-
-    console.log(editRecipe);
-    console.log(recipe);
 
     if (loading) {
         return <div>Loading...</div>;
@@ -105,13 +103,15 @@ const SingleRecipe = () => {
         <div>
             <button onClick={() => setEditMode(!editMode)}>edit</button>
             <button onClick={handleFormSubmit}>save</button>
-            <h1 className="centerRecipeName">
+            <div className="centerRecipeName">
                 <EditRecipeName
                     editMode={editMode}
                     recipe={editMode ? editRecipe : recipe}
                     setEditRecipe={setEditRecipe}
                 ></EditRecipeName>
-            </h1>
+            </div>
+
+
             <div className="bigBox">
                 <div className="box1">
                     <h2 className="centerTitle">Ingredients:</h2>
