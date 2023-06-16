@@ -22,26 +22,17 @@ const RecipeForm = () => {
   const [addRecipe, { error }] = useMutation(ADD_RECIPE, {
     update(cache, { data: { addRecipe } }) {
       try {
-        const { recipes } = cache.readQuery({ query: QUERY_RECIPES });
-        console.log(recipes);
-        cache.writeQuery({
-          query: QUERY_RECIPES,
-          data: { recipes: [addRecipe, ...recipes] },
-        });
-        console.log(recipes);
-      } catch (e) {
-        console.error("error", e);
-        // console.error("error", e.message);
-      }
-      // update me object's cache
-      try {
-        const { me } = cache.readQuery({ query: QUERY_ME }) || {
-          me: { recipes: [] },
-        };
-        // console.log("ME", me);
+        const { me } = cache.readQuery({ query: QUERY_ME });
         cache.writeQuery({
           query: QUERY_ME,
-          data: { me: { ...me, recipes: [...me.recipes, addRecipe] } },
+          data: {
+            me: {
+              _id: me._id,
+              username: me.username,
+              email: me.email,
+              recipes: [...me.recipes, addRecipe],
+            },
+          },
         });
       } catch (e) {
         console.error("me", e);
@@ -173,7 +164,7 @@ const RecipeForm = () => {
               </div>
             </div>
 
-            <div className="">
+            <div className="marginB">
               <button className="add-rec btn btn-block py-3" type="submit">
                 Add Recipe
               </button>

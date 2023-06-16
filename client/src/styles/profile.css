@@ -67,6 +67,7 @@
     text-decoration: none;
 }
 
+
 @media screen and (max-width: 1050px) {
     .eachBox{
        
@@ -76,4 +77,5 @@
         align-content: center;
         justify-content: space-between;
 }
+
 }
