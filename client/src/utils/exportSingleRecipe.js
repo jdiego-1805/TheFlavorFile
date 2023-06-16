@@ -19,6 +19,7 @@ export function IngredientList({ recipe, editMode, setEditRecipe }) {
         <div className="inputOuterBox">
           <input
             className="inputIngredients"
+            key={i}
             value={ingredient}
             onChange={(event) => changeIngredient(event, i)}
           ></input>
@@ -52,6 +53,7 @@ export function InstructionsList({ recipe, editMode, setEditRecipe }) {
         <div className="inputOuterBox">
           <textarea
             className="inputInstructions"
+            key={i}
             value={instruction}
             onChange={(event) => changeInstructions(event, i)}
           ></textarea>
