@@ -174,11 +174,7 @@ const RecipeForm = () => {
             </div>
 
             <div className="">
-              <button
-                onClick={navigateToMe}
-                className="add-rec btn btn-block py-3"
-                type="submit"
-              >
+              <button className="add-rec btn btn-block py-3" type="submit">
                 Add Recipe
               </button>
             </div>
