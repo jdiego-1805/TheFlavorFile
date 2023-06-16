@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import "../../styles/recipesform.css";
-import { useNavigate } from "react-router-dom";
 
 import { ADD_RECIPE } from "../../utils/mutations";
 import { QUERY_RECIPES, QUERY_ME } from "../../utils/queries";
@@ -175,11 +174,7 @@ const RecipeForm = () => {
             </div>
 
             <div className="">
-              <button
-                onClick={navigateToMe}
-                className="add-rec btn btn-block py-3"
-                type="submit"
-              >
+              <button className="add-rec btn btn-block py-3" type="submit">
                 Add Recipe
               </button>
             </div>
