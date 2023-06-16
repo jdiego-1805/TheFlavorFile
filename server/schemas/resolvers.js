@@ -11,11 +11,9 @@ const resolvers = {
       return User.findOne({ username }).populate("recipes");
     },
     recipes: async (parent, { username }) => {
-      console.log(username);
       const params = username ? { username } : {};
-      let recipe = await Recipe.find(params).sort({ createdAt: -1 });
-      console.log(recipe);
-      return recipe;
+      let recipes = await Recipe.find(params).sort({ createdAt: -1 });
+      return recipes;
     },
     recipe: async (parent, { recipeId }) => {
       return Recipe.findOne({ _id: recipeId });
@@ -82,6 +80,28 @@ const resolvers = {
         );
 
         return removeRecipe;
+      }
+      throw new AuthenticationError("You need to be logged in!");
+    },
+    updateRecipe: async (
+      parent,
+      { recipeId, recipeName, ingredients, instructions },
+      context
+    ) => {
+      if (context.user) {
+        const recipe = await Recipe.findOne({ _id: recipeId });
+
+        if (!recipe) {
+          throw new Error("Recipe was not found");
+        }
+
+        const updatedRecipe = await Recipe.findByIdAndUpdate(
+          { _id: recipeId },
+          { $set: { recipeName, ingredients, instructions } },
+          { new: true }
+        );
+
+        return updatedRecipe;
       }
       throw new AuthenticationError("You need to be logged in!");
     },

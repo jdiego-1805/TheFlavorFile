@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import "../../styles/recipesform.css";
 import { useNavigate } from "react-router-dom";
@@ -23,30 +23,37 @@ const RecipeForm = () => {
   const [addRecipe, { error }] = useMutation(ADD_RECIPE, {
     update(cache, { data: { addRecipe } }) {
       try {
-        const { recipe } = cache.readQuery({ query: QUERY_RECIPES });
-
+        const { recipes } = cache.readQuery({ query: QUERY_RECIPES });
+        console.log(recipes);
         cache.writeQuery({
           query: QUERY_RECIPES,
-          data: { recipe: [addRecipe, ...recipe] },
+          data: { recipes: [addRecipe, ...recipes] },
+        });
+        console.log(recipes);
+      } catch (e) {
+        console.error("error", e);
+        // console.error("error", e.message);
+      }
+      // update me object's cache
+      try {
+        const { me } = cache.readQuery({ query: QUERY_ME }) || {
+          me: { recipes: [] },
+        };
+        // console.log("ME", me);
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: { me: { ...me, recipes: [...me.recipes, addRecipe] } },
         });
       } catch (e) {
-        console.error(e);
+        console.error("me", e);
       }
-
-      // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME }) || {
-        me: { recipe: [] },
-      };
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, recipe: [...me.recipe, addRecipe] } },
-      });
     },
   });
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
-    
+
     try {
       if (!recipeName) {
         console.error("Recipe name is required.");
@@ -60,15 +67,17 @@ const RecipeForm = () => {
           recipeAuthor: Auth.getProfile().data.username,
         },
       });
-      
+
       setIngredientsText("");
       setInstructionsText("");
       setRecipeNameText("");
+
+      navigate("/me");
     } catch (err) {
       console.error(err);
     }
   };
-  
+
   const handleChange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
@@ -87,19 +96,13 @@ const RecipeForm = () => {
   const handleIngredient = async (event) => {
     event.preventDefault();
     setIngredientArray([...ingredientArray, ingredients]);
-    setIngredientsText("")
+    setIngredientsText("");
   };
-  
+
   const handleInstruction = async (event) => {
     event.preventDefault();
-  setInstructionArray([...instructionArray, instructions]);
-  setInstructionsText("")
-  };
-  
-  const navigate = useNavigate();
-
-  const navigateToMe = () => {
-    navigate('/me');
+    setInstructionArray([...instructionArray, instructions]);
+    setInstructionsText("");
   };
 
   return (
@@ -109,10 +112,7 @@ const RecipeForm = () => {
 
       {Auth.loggedIn() ? (
         <>
-          <form
-            className="form-body"
-            onSubmit={handleFormSubmit}
-          >
+          <form className="form-body" onSubmit={handleFormSubmit}>
             <div className="mini-title">
               What is your recipe called:
               <textarea
@@ -135,11 +135,16 @@ const RecipeForm = () => {
                 style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
                 ></textarea>
+              <div>
+                {ingredientArray.map((ingredient, i) => (
+                  <li key={i}>{ingredient}</li>
+                ))}
+              </div>
               <button
                 className="add-btn btn"
                 type="text"
                 onClick={handleIngredient}
-                >
+              >
                 Add Ingredient
               </button>
                 <div>{ingredientArray.map((ingredient) => (
@@ -157,6 +162,13 @@ const RecipeForm = () => {
                 style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
               ></textarea>
+              <div className="">
+                <ol>
+                  {instructionArray.map((instruction, index) => (
+                    <li key={index}>{instruction}</li>
+                  ))}
+                </ol>
+              </div>
               <button
                 className="add-btn btn"
                 type="text"
