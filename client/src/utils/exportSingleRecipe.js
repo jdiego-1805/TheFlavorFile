@@ -17,6 +17,7 @@ export function IngredientList({ recipe, editMode, setEditRecipe }) {
     return recipe.ingredients.map((ingredient, i) => {
       return (
         <input
+          key={i}
           value={ingredient}
           onChange={(event) => changeIngredient(event, i)}
         ></input>
@@ -47,6 +48,7 @@ export function InstructionsList({ recipe, editMode, setEditRecipe }) {
     return recipe.instructions.map((instruction, i) => {
       return (
         <input
+          key={i}
           value={instruction}
           onChange={(event) => changeInstructions(event, i)}
         ></input>
