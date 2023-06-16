@@ -11,11 +11,9 @@ const resolvers = {
       return User.findOne({ username }).populate("recipes");
     },
     recipes: async (parent, { username }) => {
-      console.log(username);
       const params = username ? { username } : {};
-      let recipe = await Recipe.find(params).sort({ createdAt: -1 });
-      console.log(recipe);
-      return recipe;
+      let recipes = await Recipe.find(params).sort({ createdAt: -1 });
+      return recipes;
     },
     recipe: async (parent, { recipeId }) => {
       return Recipe.findOne({ _id: recipeId });

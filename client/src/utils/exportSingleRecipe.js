@@ -24,7 +24,7 @@ export function IngredientList({ recipe, editMode, setEditRecipe }) {
     });
   } else {
     return recipe.ingredients.map((ingredient, i) => {
-      return <li>{ingredient}</li>;
+      return <li key={i}>{ingredient}</li>;
     });
   }
 }
@@ -54,7 +54,7 @@ export function InstructionsList({ recipe, editMode, setEditRecipe }) {
     });
   } else {
     return recipe.instructions.map((instruction, i) => {
-      return <li>{instruction}</li>;
+      return <li key={i}>{instruction}</li>;
     });
   }
 }
