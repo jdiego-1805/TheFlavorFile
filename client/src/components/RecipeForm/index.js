@@ -22,24 +22,30 @@ const RecipeForm = () => {
   const [addRecipe, { error }] = useMutation(ADD_RECIPE, {
     update(cache, { data: { addRecipe } }) {
       try {
-        const { recipe } = cache.readQuery({ query: QUERY_RECIPES });
-
+        const { recipes } = cache.readQuery({ query: QUERY_RECIPES });
+        console.log(recipes);
         cache.writeQuery({
           query: QUERY_RECIPES,
-          data: { recipe: [addRecipe, ...recipe] },
+          data: { recipes: [addRecipe, ...recipes] },
+        });
+        console.log(recipes);
+      } catch (e) {
+        console.error("error", e);
+        // console.error("error", e.message);
+      }
+      // update me object's cache
+      try {
+        const { me } = cache.readQuery({ query: QUERY_ME }) || {
+          me: { recipes: [] },
+        };
+        // console.log("ME", me);
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: { me: { ...me, recipes: [...me.recipes, addRecipe] } },
         });
       } catch (e) {
-        console.error(e);
+        console.error("me", e);
       }
-
-      // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME }) || {
-        me: { recipe: [] },
-      };
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, recipe: [...me.recipe, addRecipe] } },
-      });
     },
   });
   const navigate = useNavigate();
