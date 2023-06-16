@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import "../../styles/recipesform.css";
+import { useNavigate } from "react-router-dom";
 
 import { ADD_RECIPE } from "../../utils/mutations";
 import { QUERY_RECIPES, QUERY_ME } from "../../utils/queries";
@@ -133,18 +134,18 @@ const RecipeForm = () => {
                 style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
               ></textarea>
-              <div>
-                {ingredientArray.map((ingredient, i) => (
-                  <li key={i}>{ingredient}</li>
-                ))}
-              </div>
               <button
-                className="btn btn-block py-3"
+                className="add-btn btn"
                 type="text"
                 onClick={handleIngredient}
               >
                 Add Ingredient
               </button>
+              <div>
+                {ingredientArray.map((ingredient, i) => (
+                  <li key={i}>{ingredient}</li>
+                ))}
+              </div>
             </div>
 
             <div className="mini-title">
@@ -157,6 +158,13 @@ const RecipeForm = () => {
                 style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
               ></textarea>
+              <button
+                className="add-btn btn"
+                type="text"
+                onClick={handleInstruction}
+              >
+                Add Instruction
+              </button>
               <div className="">
                 <ol>
                   {instructionArray.map((instruction, index) => (
@@ -164,17 +172,14 @@ const RecipeForm = () => {
                   ))}
                 </ol>
               </div>
-              <button
-                className="btn btn-block py-3"
-                type="text"
-                onClick={handleInstruction}
-              >
-                Add Instruction
-              </button>
             </div>
 
-            <div className="col-12 col-lg-3">
-              <button className="add-rec btn btn-block py-3" type="submit">
+            <div className="">
+              <button
+                onClick={navigateToMe}
+                className="add-rec btn btn-block py-3"
+                type="submit"
+              >
                 Add Recipe
               </button>
             </div>
