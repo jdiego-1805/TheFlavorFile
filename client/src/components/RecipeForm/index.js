@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import "../../styles/recipesform.css";
 
@@ -8,7 +8,7 @@ import { QUERY_RECIPES, QUERY_ME } from "../../utils/queries";
 
 import Auth from "../../utils/auth";
 
-const RecipeForm = ({ recipeId }) => {
+const RecipeForm = () => {
   const [recipeName, setRecipeNameText] = useState("");
 
   const [ingredientArray, setIngredientArray] = useState([]);
@@ -22,31 +22,42 @@ const RecipeForm = ({ recipeId }) => {
   const [addRecipe, { error }] = useMutation(ADD_RECIPE, {
     update(cache, { data: { addRecipe } }) {
       try {
-        const { recipe } = cache.readQuery({ query: QUERY_RECIPES });
-
+        const { recipes } = cache.readQuery({ query: QUERY_RECIPES });
+        console.log(recipes);
         cache.writeQuery({
           query: QUERY_RECIPES,
-          data: { recipe: [addRecipe, ...recipe] },
+          data: { recipes: [addRecipe, ...recipes] },
+        });
+        console.log(recipes);
+      } catch (e) {
+        console.error("error", e);
+        // console.error("error", e.message);
+      }
+      // update me object's cache
+      try {
+        const { me } = cache.readQuery({ query: QUERY_ME }) || {
+          me: { recipes: [] },
+        };
+        // console.log("ME", me);
+        cache.writeQuery({
+          query: QUERY_ME,
+          data: { me: { ...me, recipes: [...me.recipes, addRecipe] } },
         });
       } catch (e) {
-        console.error(e);
+        console.error("me", e);
       }
-
-      // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME }) || {
-        me: { recipe: [] },
-      };
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, recipe: [...me.recipe, addRecipe] } },
-      });
     },
   });
+  const navigate = useNavigate();
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
     try {
+      if (!recipeName) {
+        console.error("Recipe name is required.");
+        return;
+      }
       const { data } = await addRecipe({
         variables: {
           recipeName,
@@ -59,12 +70,15 @@ const RecipeForm = ({ recipeId }) => {
       setIngredientsText("");
       setInstructionsText("");
       setRecipeNameText("");
+
+      navigate("/me");
     } catch (err) {
       console.error(err);
     }
   };
 
   const handleChange = (event) => {
+    event.preventDefault();
     const { name, value } = event.target;
 
     if (name === "recipeNameText") {
@@ -78,14 +92,17 @@ const RecipeForm = ({ recipeId }) => {
     }
   };
 
-  const handleIngredient = async () => {
+  const handleIngredient = async (event) => {
+    event.preventDefault();
     setIngredientArray([...ingredientArray, ingredients]);
+    setIngredientsText("");
   };
-  
-  const handleInstruction = async () => {
-  setInstructionArray([...instructionArray, instructions]);
+
+  const handleInstruction = async (event) => {
+    event.preventDefault();
+    setInstructionArray([...instructionArray, instructions]);
+    setInstructionsText("");
   };
-  
 
   return (
     <div>
@@ -93,11 +110,8 @@ const RecipeForm = ({ recipeId }) => {
 
       {Auth.loggedIn() ? (
         <>
-          <form
-            className="flex-row justify-center justify-space-between-md align-center"
-            onSubmit={handleFormSubmit}
-          >
-            <div className="mini-title col-12 col-lg-4">
+          <form className="form-body" onSubmit={handleFormSubmit}>
+            <div className="mini-title">
               What is your recipe called:
               <textarea
                 name="recipeNameText"
@@ -109,7 +123,7 @@ const RecipeForm = ({ recipeId }) => {
               ></textarea>
             </div>
 
-            <div className="mini-title col-12 col-lg-9">
+            <div className="mini-title">
               What are your ingredients and quantities:
               <textarea
                 name="ingredientsText"
@@ -118,20 +132,22 @@ const RecipeForm = ({ recipeId }) => {
                 className="form-input w-100"
                 style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
-                ></textarea>
-                <div>{ingredientArray.map((ingredient) => (
-                  <li>{ingredient}</li>
-                ))}</div>
+              ></textarea>
               <button
-                className="btn btn-block py-3"
+                className="add-btn btn"
                 type="text"
                 onClick={handleIngredient}
-                >
+              >
                 Add Ingredient
               </button>
+              <div>
+                {ingredientArray.map((ingredient, i) => (
+                  <li key={i}>{ingredient}</li>
+                ))}
+              </div>
             </div>
 
-            <div className="mini-title col-12 col-lg-9">
+            <div className="mini-title">
               Give detailed instructions on how to make:
               <textarea
                 name="instructionsText"
@@ -141,19 +157,23 @@ const RecipeForm = ({ recipeId }) => {
                 style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
               ></textarea>
-                <div className=""><ol>{instructionArray.map((instruction, index) => (
-                  <li key={index}>{instruction}</li>
-                ))}</ol></div>
               <button
-                className="btn btn-block py-3"
+                className="add-btn btn"
                 type="text"
                 onClick={handleInstruction}
               >
                 Add Instruction
               </button>
+              <div className="">
+                <ol>
+                  {instructionArray.map((instruction, index) => (
+                    <li key={index}>{instruction}</li>
+                  ))}
+                </ol>
+              </div>
             </div>
 
-            <div className="col-12 col-lg-3">
+            <div className="">
               <button className="add-rec btn btn-block py-3" type="submit">
                 Add Recipe
               </button>
