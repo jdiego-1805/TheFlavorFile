@@ -39,7 +39,9 @@ const SingleRecipe = () => {
           data: { recipe: { ...recipe, ...updateRecipe } },
         });
 
-        const { recipes } = cache.readQuery({ query: QUERY_RECIPES });
+        const { recipes } = cache.readQuery({ query: QUERY_RECIPES }) || {
+          recipes: [],
+        };
         cache.writeQuery({
           query: QUERY_RECIPES,
           data: {

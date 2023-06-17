@@ -16,12 +16,20 @@ export function IngredientList({ recipe, editMode, setEditRecipe }) {
   if (editMode) {
     return recipe.ingredients.map((ingredient, i) => {
       return (
+<<<<<<< HEAD
+=======
+
+>>>>>>> 26f7906e8c701842befb9906f9cd8b8c5cf3fca4
         <input
           className="inputIngredients"
           key={i}
           value={ingredient}
           onChange={(event) => changeIngredient(event, i)}
         ></input>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 26f7906e8c701842befb9906f9cd8b8c5cf3fca4
       );
     });
   } else {
@@ -52,12 +60,20 @@ export function InstructionsList({ recipe, editMode, setEditRecipe }) {
   if (editMode) {
     return recipe.instructions.map((instruction, i) => {
       return (
+<<<<<<< HEAD
+=======
+
+>>>>>>> 26f7906e8c701842befb9906f9cd8b8c5cf3fca4
         <textarea
           className="inputInstructions"
           key={i}
           value={instruction}
           onChange={(event) => changeInstructions(event, i)}
         ></textarea>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 26f7906e8c701842befb9906f9cd8b8c5cf3fca4
       );
     });
   } else {
