@@ -4,41 +4,19 @@ import { useMutation } from "@apollo/client";
 import "../../styles/recipesform.css";
 
 import { ADD_RECIPE } from "../../utils/mutations";
-import { QUERY_RECIPES, QUERY_ME } from "../../utils/queries";
+import { QUERY_ME } from "../../utils/queries";
 
 import Auth from "../../utils/auth";
 
 const RecipeForm = () => {
   const [recipeName, setRecipeNameText] = useState("");
-
   const [ingredientArray, setIngredientArray] = useState([]);
-
   const [instructionArray, setInstructionArray] = useState([]);
-
   const [ingredients, setIngredientsText] = useState("");
-
   const [instructions, setInstructionsText] = useState("");
 
-  const [addRecipe, { error }] = useMutation(ADD_RECIPE, {
-    update(cache, { data: { addRecipe } }) {
-      try {
-        const { me } = cache.readQuery({ query: QUERY_ME });
-        cache.writeQuery({
-          query: QUERY_ME,
-          data: {
-            me: {
-              _id: me._id,
-              username: me.username,
-              email: me.email,
-              recipes: [...me.recipes, addRecipe],
-            },
-          },
-        });
-      } catch (e) {
-        console.error("me", e);
-      }
-    },
-  });
+  const [addRecipe, { error }] = useMutation(ADD_RECIPE);
+
   const navigate = useNavigate();
 
   const handleFormSubmit = async (event) => {
@@ -55,6 +33,29 @@ const RecipeForm = () => {
           ingredients: ingredientArray,
           instructions: instructionArray,
           recipeAuthor: Auth.getProfile().data.username,
+        },
+        update(cache, { data: { addRecipe } }) {
+          try {
+            const { me } = cache.readQuery({ query: QUERY_ME }) || {};
+            const updatedRecipes = addRecipe
+              ? [...(me?.recipes || []), addRecipe]
+              : me?.recipes || [];
+
+            cache.writeQuery({
+              query: QUERY_ME,
+              data: {
+                me: {
+                  ...me,
+                  _id: me?._id || "",
+                  username: me?.username || "",
+                  email: me?.email || "",
+                  recipes: updatedRecipes,
+                },
+              },
+            });
+          } catch (e) {
+            console.error("me", e);
+          }
         },
       });
 
