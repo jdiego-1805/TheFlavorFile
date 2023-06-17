@@ -16,16 +16,19 @@ export function IngredientList({ recipe, editMode, setEditRecipe }) {
   if (editMode) {
     return recipe.ingredients.map((ingredient, i) => {
       return (
-        <input
-          key={i}
-          value={ingredient}
-          onChange={(event) => changeIngredient(event, i)}
-        ></input>
+        <div className="inputOuterBox">
+          <input
+            className="inputIngredients"
+            key={i}
+            value={ingredient}
+            onChange={(event) => changeIngredient(event, i)}
+          ></input>
+        </div>
       );
     });
   } else {
     return recipe.ingredients.map((ingredient, i) => {
-      return <li key={i}>{ingredient}</li>;
+      return <li key={i} className="ingredientList">{ingredient}</li>;
     });
   }
 }
@@ -47,16 +50,19 @@ export function InstructionsList({ recipe, editMode, setEditRecipe }) {
   if (editMode) {
     return recipe.instructions.map((instruction, i) => {
       return (
-        <input
-          key={i}
-          value={instruction}
-          onChange={(event) => changeInstructions(event, i)}
-        ></input>
+        <div className="inputOuterBox">
+          <textarea
+            className="inputInstructions"
+            key={i}
+            value={instruction}
+            onChange={(event) => changeInstructions(event, i)}
+          ></textarea>
+        </div>
       );
     });
   } else {
     return recipe.instructions.map((instruction, i) => {
-      return <li key={i}>{instruction}</li>;
+      return <li key={i} className="instructionList">{instruction}</li>;
     });
   }
 }
@@ -73,10 +79,13 @@ export function EditRecipeName({ recipe, editMode, setEditRecipe }) {
   }
   if (editMode) {
     return (
-      <input
-        value={recipe.recipeName}
-        onChange={(event) => changeRecipeName(event)}
-      ></input>
+      <div className="centerRecipeName">
+        <input
+          className="centerRecipeName"
+          value={recipe.recipeName}
+          onChange={(event) => changeRecipeName(event)}
+        ></input>
+      </div>
     );
   } else {
     return <h1 className="centerTitle titleRecipe">{recipe.recipeName}</h1>;

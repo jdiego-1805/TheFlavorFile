@@ -13,7 +13,7 @@
     margin: auto;
     justify-content: center;
     gap: 20px;
-    padding-bottom: 1px;
+    padding-bottom: 4px;
 }
 
 .recipeBox {
@@ -25,7 +25,13 @@
     gap: 15px;
     background-color: #BA1B1D;
     border-radius: 20px 20px 20px 0px;
+    box-shadow: -7px 7px 3px;
 }
+
+.recipeBox:hover{
+    box-shadow: -7px 7px 3px #F24333 !important;
+}
+
 
 .btn-view, .btn-delete {
     padding: 7px;
@@ -67,10 +73,12 @@
     text-decoration: none;
 }
 
+.example1{
+    margin-top: auto;
+}
 
 @media screen and (max-width: 1050px) {
     .eachBox{
-       
         display: flex;
         gap: 50px;
         flex-direction: column;

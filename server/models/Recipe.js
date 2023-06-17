@@ -5,24 +5,18 @@ const recipeSchema = new Schema({
   recipeName: {
     type: String,
     required: true,
-    minlength: 1,
-    maxlength: 280,
     trim: true,
   },
   ingredients: [
     {
       type: String,
       required: true,
-      minlength: 1,
-      maxlength: 280,
       trim: true,
     },
   ],
   instructions: [
     {
       type: String,
-      minlength: 1,
-      maxlength: 280,
       trim: true,
     },
   ],

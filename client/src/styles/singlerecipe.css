@@ -1,41 +1,121 @@
 .bigBox{
     display: grid;
-    grid-template-rows: 300px 300px;
+    grid-template-rows: 100%;
     grid-template-columns: 700px 700px;
     grid-column-gap: 100px;
     justify-content: center;
+    padding-bottom: 20px;
 }
+
 .centerTitle{
     text-align: center;
     padding-bottom: 20px;
     color: white;
 }
+
+.centerRecipeName{
+    justify-content: center;
+    text-align: center;
+    font-size: 55px;
+    padding-bottom: 10px;
+}
+
 .titleRecipe{
     text-align: center;
     color: #F24333;
+    font-size: 55px;
 }
-.box1{ 
-    background-color: #F24333;
+
+.box1, .box2{ 
+    background-color: #BA1B1D;
     font-size: 20px;
+    overflow-wrap: break-word;
+    border: solid;
+    border-radius: 20px 20px 20px 0px;
+    box-shadow: -3px 3px 3px;
 }
-.box2{ 
-    background-color: #F24333;
-    font-size: 20px;
-}
+
+
+
+
 .ingredient{
-    background-color: #F24333;
+    background-color: #BA1B1D;
+    color: #F7F4F3;
 }
 .instruction{
+    background-color: #BA1B1D;
+    color: #F7F4F3;
+}
+
+
+
+.inputInstructions{
+    width: 100%;
+    height: 100px;
+}
+
+.inputIngredients{
+    width: 100%;
+    margin-bottom: 7px;
+}
+
+
+.inputOuterBox{
+    width: 95%;
+}
+
+.ingredient{
+    padding-left: 20px;
+}
+
+.ingredientList, .instructionList{
+    margin-bottom: 20px;
+}
+
+.instructionList{
+    position: relative;
+}
+
+.instructionList::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: -20px;
+    border-bottom: 2px solid #564D4A;
+    width: 97%;
+}
+
+.btnLine{
+    display: flex;
+    justify-content: center;
+    gap: 120px;
+    padding-bottom: 15px;
+}
+
+.editSaveBtn{
+    font-size: 20px;
+    padding: 5px;
+    width: 150px;
+    height: 45px;
     background-color: #F24333;
+    border-radius: 5px;
+}
+
+.editSaveBtn:active{
+    box-shadow: inset 0 0 10px;
 }
 
 @media screen and (max-width: 1520px) {
     .bigBox{
-       
         display: flex;
         gap: 50px;
         flex-direction: column;
         align-content: center;
         justify-content: space-between;
+        padding: 0px 3px 0px 3px;
+}
+
+.instructionList::before {
+    width: 97%;
 }
 }
