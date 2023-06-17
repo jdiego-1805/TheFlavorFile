@@ -16,14 +16,14 @@ export function IngredientList({ recipe, editMode, setEditRecipe }) {
   if (editMode) {
     return recipe.ingredients.map((ingredient, i) => {
       return (
-        <div className="inputOuterBox">
-          <input
-            className="inputIngredients"
-            key={i}
-            value={ingredient}
-            onChange={(event) => changeIngredient(event, i)}
-          ></input>
-        </div>
+
+        <input
+          className="inputIngredients"
+          key={i}
+          value={ingredient}
+          onChange={(event) => changeIngredient(event, i)}
+        ></input>
+
       );
     });
   } else {
@@ -50,14 +50,14 @@ export function InstructionsList({ recipe, editMode, setEditRecipe }) {
   if (editMode) {
     return recipe.instructions.map((instruction, i) => {
       return (
-        <div className="inputOuterBox">
-          <textarea
-            className="inputInstructions"
-            key={i}
-            value={instruction}
-            onChange={(event) => changeInstructions(event, i)}
-          ></textarea>
-        </div>
+
+        <textarea
+          className="inputInstructions"
+          key={i}
+          value={instruction}
+          onChange={(event) => changeInstructions(event, i)}
+        ></textarea>
+
       );
     });
   } else {
