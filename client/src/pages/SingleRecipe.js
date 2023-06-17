@@ -101,16 +101,18 @@ const SingleRecipe = () => {
 
     return (
         <div>
-            <button onClick={() => setEditMode(!editMode)}>edit</button>
-            <button onClick={handleFormSubmit}>save</button>
-            <div className="centerRecipeName">
-                <EditRecipeName
-                    editMode={editMode}
-                    recipe={editMode ? editRecipe : recipe}
-                    setEditRecipe={setEditRecipe}
-                ></EditRecipeName>
-            </div>
 
+            <EditRecipeName
+                editMode={editMode}
+                recipe={editMode ? editRecipe : recipe}
+                setEditRecipe={setEditRecipe}
+            ></EditRecipeName>
+
+
+            <div className="btnLine">
+                <button className="editSaveBtn" onClick={() => setEditMode(!editMode)}>Edit</button>
+                <button className="editSaveBtn" onClick={handleFormSubmit}>Save</button>
+            </div>
 
             <div className="bigBox">
                 <div className="box1">

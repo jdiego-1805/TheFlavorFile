@@ -79,11 +79,13 @@ export function EditRecipeName({ recipe, editMode, setEditRecipe }) {
   }
   if (editMode) {
     return (
-      <input
-        className="centerRecipeName"
-        value={recipe.recipeName}
-        onChange={(event) => changeRecipeName(event)}
-      ></input>
+      <div className="centerRecipeName">
+        <input
+          className="centerRecipeName"
+          value={recipe.recipeName}
+          onChange={(event) => changeRecipeName(event)}
+        ></input>
+      </div>
     );
   } else {
     return <h1 className="centerTitle titleRecipe">{recipe.recipeName}</h1>;

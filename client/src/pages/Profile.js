@@ -67,16 +67,18 @@ const Profile = () => {
             recipes.map((recipe) => (
               <div key={recipe._id} className="recipeBox container">
                 <h1 className="recipeName">{recipe.recipeName}</h1>
-                <div className="buttonGrid">
-                  <Link className="linkText" to={`/recipes/${recipe._id}`}>
-                    <button className="btn-view">View this recipe!</button>
-                  </Link>
-                  <button
-                    className="btn-delete"
-                    onClick={() => handleRemoveRecipe(recipe._id)}
-                  >
-                    Delete this recipe!
-                  </button>
+                <div className="example1">
+                  <div className="buttonGrid">
+                    <Link className="linkText" to={`/recipes/${recipe._id}`}>
+                      <button className="btn-view">View this recipe!</button>
+                    </Link>
+                    <button
+                      className="btn-delete"
+                      onClick={() => handleRemoveRecipe(recipe._id)}
+                    >
+                      Delete this recipe!
+                    </button>
+                  </div>
                 </div>
               </div>
             ))}

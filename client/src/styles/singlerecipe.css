@@ -4,6 +4,7 @@
     grid-template-columns: 700px 700px;
     grid-column-gap: 100px;
     justify-content: center;
+    padding-bottom: 20px;
 }
 
 .centerTitle{
@@ -15,25 +16,26 @@
 .centerRecipeName{
     justify-content: center;
     text-align: center;
-    font-size: 65px;
-    padding-bottom: 20px;
+    font-size: 55px;
+    padding-bottom: 10px;
 }
 
 .titleRecipe{
     text-align: center;
     color: #F24333;
-    font-size: 65px;
+    font-size: 55px;
 }
 
-.box1{ 
-    background-color: #BA1B1D;
-    font-size: 20px;
-}
-.box2{ 
+.box1, .box2{ 
     background-color: #BA1B1D;
     font-size: 20px;
     overflow-wrap: break-word;
+    border: solid;
+    border-radius: 20px 20px 20px 0px;
+    box-shadow: -3px 3px 3px;
 }
+
+
 
 
 .ingredient{
@@ -77,10 +79,30 @@
 .instructionList::before {
     content: '';
     position: absolute;
-    bottom: 0;
+    bottom: -10px;
     left: -20px;
     border-bottom: 2px solid #564D4A;
     width: 97%;
+}
+
+.btnLine{
+    display: flex;
+    justify-content: center;
+    gap: 120px;
+    padding-bottom: 15px;
+}
+
+.editSaveBtn{
+    font-size: 20px;
+    padding: 5px;
+    width: 150px;
+    height: 45px;
+    background-color: #F24333;
+    border-radius: 5px;
+}
+
+.editSaveBtn:active{
+    box-shadow: inset 0 0 10px;
 }
 
 @media screen and (max-width: 1520px) {
@@ -90,6 +112,7 @@
         flex-direction: column;
         align-content: center;
         justify-content: space-between;
+        padding: 0px 3px 0px 3px;
 }
 
 .instructionList::before {
