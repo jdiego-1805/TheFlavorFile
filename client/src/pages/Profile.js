@@ -9,35 +9,42 @@ import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { username: userParam } = useParams();
-  const [removeRecipe, { error }] = useMutation(REMOVE_RECIPE, {
-    update(cache, { data: { removeRecipe } }) {
-      try {
-        cache.writeQuery({
-          query: QUERY_ME,
-          data: { me: removeRecipe },
-        });
-      } catch (e) {
-        console.error(e);
-      }
-    },
+  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
+    variables: { username: userParam },
   });
+
+  const user = data?.me || data?.user || {};
+
+  const [removeRecipe, { error }] = useMutation(REMOVE_RECIPE);
 
   const handleRemoveRecipe = async (recipeId) => {
     try {
-      const { data } = await removeRecipe({
+      await removeRecipe({
         variables: { recipeId },
+        update(cache) {
+          const { me } = cache.readQuery({ query: QUERY_ME });
+
+          const updatedRecipes = me.recipes.filter(
+            (recipe) => recipe._id !== recipeId
+          );
+
+          cache.writeQuery({
+            query: QUERY_ME,
+            data: {
+              me: {
+                ...me,
+                recipes: updatedRecipes,
+              },
+            },
+          });
+        },
       });
     } catch (err) {
       console.error(err);
     }
   };
 
-  const { loading, data } = useQuery(userParam ? QUERY_USER : QUERY_ME, {
-    variables: { username: userParam },
-  });
-
-  const user = data?.me || data?.user || {};
-  // navigate to personal profile page if username is yours
+  // Navigate to personal profile page if username is yours
   if (Auth.loggedIn() && Auth.getProfile().data.username === userParam) {
     return <Navigate to="/me" />;
   }
@@ -56,32 +63,32 @@ const Profile = () => {
   }
 
   const recipes = user.recipes || [];
+
   return (
     <div className="justify-center mb-3">
-      <a href="/post">
+      <Link to="/post">
         <h1 className="recipeTitle">Click here to create a new recipe!</h1>
-      </a>
+      </Link>
       <div>
         <div className="eachBox">
-          {recipes &&
-            recipes.map((recipe) => (
-              <div key={recipe._id} className="recipeBox container">
-                <h1 className="recipeName">{recipe.recipeName}</h1>
-                <div className="example1">
-                  <div className="buttonGrid">
-                    <Link className="linkText" to={`/recipes/${recipe._id}`}>
-                      <button className="btn-view">View this recipe!</button>
-                    </Link>
-                    <button
-                      className="btn-delete"
-                      onClick={() => handleRemoveRecipe(recipe._id)}
-                    >
-                      Delete this recipe!
-                    </button>
-                  </div>
+          {recipes.map((recipe) => (
+            <div key={recipe._id} className="recipeBox container">
+              <h1 className="recipeName">{recipe.recipeName}</h1>
+              <div className="example1">
+                <div className="buttonGrid">
+                  <Link className="linkText" to={`/recipes/${recipe._id}`}>
+                    <button className="btn-view">View this recipe!</button>
+                  </Link>
+                  <button
+                    className="btn-delete"
+                    onClick={() => handleRemoveRecipe(recipe._id)}
+                  >
+                    Delete this recipe!
+                  </button>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
       </div>
     </div>
