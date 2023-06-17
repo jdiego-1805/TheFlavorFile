@@ -39,9 +39,7 @@ const SingleRecipe = () => {
           data: { recipe: { ...recipe, ...updateRecipe } },
         });
 
-        const { recipes } = cache.readQuery({ query: QUERY_RECIPES }) || {
-          recipes: [],
-        };
+        const { recipes } = cache.readQuery({ query: QUERY_RECIPES });
         cache.writeQuery({
           query: QUERY_RECIPES,
           data: {
@@ -60,14 +58,9 @@ const SingleRecipe = () => {
       const { me } = cache.readQuery({ query: QUERY_ME }) || {
         me: { recipe: [] },
       };
-
-      const updatedRecipeList = Array.isArray(me.recipe)
-        ? [...me.recipe, updateRecipe]
-        : [updateRecipe];
-
       cache.writeQuery({
         query: QUERY_ME,
-        data: { me: { ...me, recipe: updatedRecipeList } },
+        data: { me: { ...me, recipe: [...me.recipe, updateRecipe] } },
       });
     },
   });
