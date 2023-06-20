@@ -97,7 +97,7 @@ const RecipeForm = () => {
   };
 
   return (
-    <div>
+    <div className="recipeFormContainer">
       <h3>Whisking Up Recipe Fun: Let's Post!</h3>
 
       {Auth.loggedIn() ? (
@@ -110,7 +110,7 @@ const RecipeForm = () => {
                 placeholder="Burger..."
                 value={recipeName}
                 className="form-input w-100"
-                style={{ lineHeight: ".3", resize: "vertical" }}
+                style={{ lineHeight: "1.5", resize: "vertical" }}
                 onChange={handleChange}
               ></textarea>
             </div>
@@ -132,7 +132,7 @@ const RecipeForm = () => {
               >
                 Add Ingredient
               </button>
-              <div>
+              <div className="box-1">
                 {ingredientArray.map((ingredient, i) => (
                   <li key={i}>{ingredient}</li>
                 ))}
@@ -156,7 +156,7 @@ const RecipeForm = () => {
               >
                 Add Instruction
               </button>
-              <div className="">
+              <div className="box-1">
                 <ol>
                   {instructionArray.map((instruction, index) => (
                     <li key={index}>{instruction}</li>
