@@ -1,8 +1,6 @@
 import "../styles/singlerecipe.css";
 export function IngredientList({ recipe, editMode, setEditRecipe }) {
   function changeIngredient(event, index) {
-    console.log(recipe);
-    console.log(event.target.value);
     setEditRecipe({
       ...recipe,
       ingredients: recipe.ingredients.map((ingredient, i) => {
@@ -37,8 +35,6 @@ export function IngredientList({ recipe, editMode, setEditRecipe }) {
 
 export function InstructionsList({ recipe, editMode, setEditRecipe }) {
   function changeInstructions(event, index) {
-    console.log(recipe);
-    console.log(event.target.value);
     setEditRecipe({
       ...recipe,
       instructions: recipe.instructions.map((instruction, i) => {
@@ -73,8 +69,6 @@ export function InstructionsList({ recipe, editMode, setEditRecipe }) {
 
 export function EditRecipeName({ recipe, editMode, setEditRecipe }) {
   function changeRecipeName(event) {
-    console.log(recipe);
-    console.log(event.target.value);
     setEditRecipe({
       ...recipe,
       recipeName: event.target.value,

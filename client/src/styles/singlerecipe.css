@@ -35,9 +35,6 @@
     box-shadow: -3px 3px 3px;
 }
 
-
-
-
 .ingredient{
     background-color: #BA1B1D;
     color: #F7F4F3;
@@ -46,8 +43,6 @@
     background-color: #BA1B1D;
     color: #F7F4F3;
 }
-
-
 
 .inputInstructions{
     width: 100%;
@@ -58,7 +53,6 @@
     width: 100%;
     margin-bottom: 7px;
 }
-
 
 .inputOuterBox{
     width: 95%;
