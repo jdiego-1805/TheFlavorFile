@@ -132,11 +132,6 @@ const RecipeForm = () => {
               >
                 Add Ingredient
               </button>
-              <div className="box-1">
-                {ingredientArray.map((ingredient, i) => (
-                  <li key={i}>{ingredient}</li>
-                ))}
-              </div>
             </div>
 
             <div className="mini-title">
@@ -156,15 +151,7 @@ const RecipeForm = () => {
               >
                 Add Instruction
               </button>
-              <div className="box-1">
-                <ol>
-                  {instructionArray.map((instruction, index) => (
-                    <li key={index}>{instruction}</li>
-                  ))}
-                </ol>
-              </div>
             </div>
-
             <div className="marginB">
               <button className="add-rec btn btn-block py-3" type="submit">
                 Add Recipe
@@ -176,6 +163,22 @@ const RecipeForm = () => {
               </div>
             )}
           </form>
+          <div className="bigBoxes">
+            <div className="box3">
+              <h2 className="titlesBox">Ingredients:</h2>
+              {ingredientArray.map((ingredient, i) => (
+                <li key={i}>{ingredient}</li>
+              ))}
+            </div>
+            <div className="box4">
+              <h2 className="titlesBox">Instructions:</h2>
+              <ol>
+                {instructionArray.map((instruction, index) => (
+                  <li key={index}>{instruction}</li>
+                ))}
+              </ol>
+            </div>
+          </div>
         </>
       ) : (
         <p>

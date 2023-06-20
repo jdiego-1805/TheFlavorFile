@@ -77,22 +77,6 @@
     margin-top: auto;
 }
 
-li {
-    font-size: 20px;
-}
-
-.box-1{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    flex-wrap: wrap;
-}
-
-.box-2{
-    font-size: 15px;
-    overflow: auto;
-    flex-wrap: wrap;
-}
-
 
 @media screen and (max-width: 1050px) {
     .eachBox{

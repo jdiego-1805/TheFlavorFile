@@ -36,6 +36,54 @@ textarea{
 }
 
 .marginB{
+    margin-top: 20px;
     margin-bottom: 20px;
 }
 
+.bigBoxes{
+    display: grid;
+    grid-template-rows: 100%;
+    grid-template-columns: 700px 700px;
+    grid-column-gap: 100px;
+    justify-content: center;
+    padding-bottom: 20px;
+}
+
+.box3, .box4 {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    background-color: #BA1B1D;
+    font-size: 20px;
+    overflow-wrap: break-word;
+    border: solid;
+    border-radius: 20px 20px 20px 0px;
+    box-shadow: -3px 3px 3px;
+  }
+
+  .box3 h2, .box4 h2 {
+    text-align: center;
+    padding-bottom: 20px;
+    color: white;
+  }
+
+.box3 li,
+.box4 li {
+  color: white;
+  margin-left: 5px;
+}
+.box4 li{
+    border-bottom: 2px solid #564D4A;
+}
+
+  @media screen and (max-width: 1520px) {
+    .bigBoxes{
+        display: flex;
+        gap: 50px;
+        flex-direction: column;
+        align-content: center;
+        justify-content: space-between;
+        padding: 0px 3px 0px 3px;
+}
+
+}
