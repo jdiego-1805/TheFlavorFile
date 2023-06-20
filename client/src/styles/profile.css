@@ -55,13 +55,13 @@
 }
 
 .eachBox{
-    display: grid;
-    padding: 1%;
-    grid-template-rows: 150px 150px;
-	grid-template-columns: 500px 500px;
+    display: flex;
     grid-gap: 20px;
     grid-column-gap: 40px;
     justify-content: center;
+    padding: 1%;
+    flex-wrap: wrap;
+    align-items: flex-end;
 }
 
 .linkText{
